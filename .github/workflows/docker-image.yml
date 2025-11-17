@@ -25,20 +25,25 @@ jobs:
           username: ${{ secrets.DOCKER_USERNAME }}
           password: ${{ secrets.DOCKER_SECRET }}
 
-      # Step 4 — Build & Push Backend Image
+      # Step 4 — Make mvnw executable (Spring Boot backend)
+      - name: Make mvnw executable
+        working-directory: ./BACKEND/springbackend
+        run: chmod +x mvnw
+
+      # Step 5 — Build & Push Backend Image
       - name: Build and Push Backend Image
-        uses: docker/build-push-action@v6
+      uses: docker/build-push-action@v6
         with:
           context: ./BACKEND/springbackend
           file: ./BACKEND/springbackend/backend.Dockerfile
           push: true
-          tags: ${{ secrets.DOCKER_USERNAME }}/helmingresss-backend:latest
+          tags: ${{ secrets.DOCKER_USERNAME }}/helm-backend:lab
 
-      # Step 5 — Build & Push Frontend Image
+      # Step 6 — Build & Push Frontend Image
       - name: Build and Push Frontend Image
         uses: docker/build-push-action@v6
         with:
           context: ./FRONTEND/reactfrontend
           file: ./FRONTEND/reactfrontend/frontend.Dockerfile
           push: true
-          tags: ${{ secrets.DOCKER_USERNAME }}/helmingresss-frontend:latest
+          tags: ${{ secrets.DOCKER_USERNAME }}/helm-frontend:lab
