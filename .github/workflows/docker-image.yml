@@ -32,7 +32,7 @@ jobs:
 
       # Step 5 — Build & Push Backend Image
       - name: Build and Push Backend Image
-      uses: docker/build-push-action@v6
+        uses: docker/build-push-action@v6
         with:
           context: ./BACKEND/springbackend
           file: ./BACKEND/springbackend/backend.Dockerfile
